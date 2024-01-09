@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Project;
+use App\Models\Type;
 
 class ProjectController extends Controller
 {
@@ -24,7 +25,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create',compact('types'));
     }
 
     /**
@@ -35,6 +37,7 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
+            'type_id' => 'nullable|exist:types,id'
 
         ]);
 
@@ -60,7 +63,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project','types'));
     }
 
     /**
@@ -68,22 +72,21 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $validatedData = $request->validate([
+     $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
+            'type_id' => 'nullable|exists:types,id'
 
         ]);
 
-        $project->update($validatedData);
 
-        return redirect()->route('admin.projects.index');
 
         $data = $request->all();
 
         $project->update($data);
 
 
-        return redirect()->route('admin.projects.show', $project->id);
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**

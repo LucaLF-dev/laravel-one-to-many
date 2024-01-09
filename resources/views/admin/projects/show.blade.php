@@ -5,6 +5,13 @@
     <section class="container text-center">
         <h1>Projects Show</h1>
         <h1>{{$project->title}}</h1>
+        @if($project->type)
+        <p>
+          <strong>
+          {{ $project->type->name }}
+          </strong>
+        </p>
+        @endif
         <p>{{$project->description}}</p>
     </section>
 
