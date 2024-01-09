@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Type;
 use App\Models\Project;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -43,11 +44,15 @@ class ProjectSeeder extends Seeder
 
         ];
 
+        $types = Type::all();
+        $ids = $types->pluck('id');
+
         foreach ($projects as $project) {
             $new_project = new Project();
 
             $new_project->title = $project['title'];
             $new_project->description = $project['description'];
+            $new_project->type_id = $ids->random();
 
 
             $new_project->save();
