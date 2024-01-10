@@ -8,11 +8,9 @@
         @csrf
         @method('PUT')
 
-
-
         <div class="mb-4">
             <label for="title" class="form-label">Titolo</label>
-            <input type="text" class="form-control" name="title" id="title" placeholder="Modifica titolo per il progetto">
+            <input type="text" class="form-control" name="title" value="{{ $project->title }}" id="title" placeholder="Modifica titolo per il progetto">
         </div>
         <div class="mb-4">
             <label for="description" class="form-label">Descrizione</label>
@@ -36,7 +34,7 @@
 
     </form>
     <div class="text-center">
-        <button><a href="{{route('admin.projects.index')}}">Torna al Catalogo</a></button>
+        <button class="btn btn-primary" ><a class="btn btn-primary" href="{{route('admin.projects.index')}}">Torna al Catalogo</a></button>
 
     </div>
 
